@@ -1,7 +1,5 @@
 #include "chip8.h"
 
-#define DEBUG 1
-
 #define STACK_SIZE 48
 #define MEMORY_SIZE 4096
 
@@ -416,7 +414,7 @@ void Init(void)
     SP     = 0;
 
     memset(stack,           0, sizeof(uint16_t) * STACK_SIZE);
-    memset(V,               0, sizeof(uint8_t)  * 16);
+    memset(V,               0, sizeof(uint8_t)  * REGISTER_SIZE);
     memset(memory,          0, sizeof(uint8_t)  * MEMORY_SIZE);
     memset(video_memory,    0, sizeof(uint8_t)  * SIZE);
     memset(font,            0, sizeof(uint8_t)  * KEY_SIZE);
@@ -437,6 +435,6 @@ void Tick(void) {
     if(sound_timer > 0){
         --sound_timer;
         if(sound_timer == 0)
-            printf("BEEP!\n");
+            printf("\aBeep");
     }
 }
