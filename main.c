@@ -83,6 +83,5 @@ key_wait(unsigned char c,int type)
             case 'g': KEY_STATE[0xD] = type ? 1 : 0; break;
             case 'z': KEY_STATE[0xE] = type ? 1 : 0; break;
             case 'x': KEY_STATE[0xF] = type ? 1 : 0; break;
-            default : 0;  break;
     }
 }
