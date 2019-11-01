@@ -15,6 +15,8 @@
 #define true    1
 #define false   0
 
+#define DEBUG 0
+
 #define WIDTH   64
 #define HEIGHT  32
 
