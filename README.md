@@ -8,3 +8,5 @@ $ make e
 es : Space Invaders [David Winter]
 
 $ ./chip8 games/'Space Invaders [David Winter].ch8'
+
+![](https://github.com/Holeryn/CHIP8/blob/master/screenshoot.png)
