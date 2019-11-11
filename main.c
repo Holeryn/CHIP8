@@ -19,7 +19,6 @@ extern uint8_t KEY_STATE[NUMBERS_OF_KEYS];
 int
 main(int argc, char *argv[])
 {
-    int x;
     int i;
     unsigned char  key_pressed,key_released;
     Init();
@@ -30,11 +29,7 @@ main(int argc, char *argv[])
     for(;;){
         if(!gfx_event_waiting(&key_pressed)){
             opcode_cycle();
-            key_wait(key_released,0);
-            
-            #if DEBUG
-                printf("# %d | %c #",x,key_pressed);
-            #endif
+            key_wait(key_released,0);            
             
             key_wait(key_pressed,1);
             key_released = key_pressed;
@@ -47,8 +42,6 @@ main(int argc, char *argv[])
             /*Big for for simulate a delay*/
             for(i = 0; i <= 100000; i++)
                 ;
-        }else{
-            x++;
         }
     }
 }
@@ -83,5 +76,6 @@ key_wait(unsigned char c,int type)
             case 'g': KEY_STATE[0xD] = type ? 1 : 0; break;
             case 'z': KEY_STATE[0xE] = type ? 1 : 0; break;
             case 'x': KEY_STATE[0xF] = type ? 1 : 0; break;
+            default : printf("-1");  break;
     }
 }
