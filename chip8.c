@@ -434,7 +434,9 @@ void Tick(void) {
 
     if(sound_timer > 0){
         --sound_timer;
-        if(sound_timer == 0)
-            printf("\aBeep");
+        #if DEBUG
+            if(sound_timer == 0)
+                printf("\aBeep");
+        #endif
     }
 }
