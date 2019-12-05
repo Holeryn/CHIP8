@@ -17,8 +17,8 @@
 
 #define DEBUG 0
 
-#define WIDTH   64
-#define HEIGHT  32
+#define WIDTH   1280
+#define HEIGHT  640
 
 #define ROWS    32
 #define COLS    64
