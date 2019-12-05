@@ -2,12 +2,13 @@
 #include "include/gfx.h"
 #include <X11/Xlib.h>
 
-#define SQUARE_SIZE 10
+#define SQUARE_SIZE 20
 
 #define EXPANDED_ROWS ROWS * SQUARE_SIZE
 #define EXPANDED_COLS COLS * SQUARE_SIZE
 
 void Draw(void);
+void paint(int row, int col, unsigned char color);
 void key_wait(unsigned char c,int type);
 
 extern bool DrawFlag;
@@ -16,9 +17,12 @@ extern uint8_t font[FONT_SIZE];
 extern uint8_t V[REGISTERS_SIZE];
 extern uint8_t KEY_STATE[NUMBERS_OF_KEYS];
 
+uint8_t Extended_Vram[EXPANDED_ROWS][EXPANDED_COLS];
+
 int
 main(int argc, char *argv[])
 {
+    int x;
     int i;
     unsigned char  key_pressed,key_released;
     Init();
@@ -29,19 +33,26 @@ main(int argc, char *argv[])
     for(;;){
         if(!gfx_event_waiting(&key_pressed)){
             opcode_cycle();
-            key_wait(key_released,0);            
+            key_wait(key_released,0);
+            
+            #if DEBUG
+                printf("# %d | %c #",x,key_pressed);
+            #endif
             
             key_wait(key_pressed,1);
             key_released = key_pressed;
 
-            gfx_clear();
-
-            if(DrawFlag)
+            if(DrawFlag){
+                gfx_clear();
                 Draw();
-            
-            /*Big for for simulate a delay*/
-            for(i = 0; i <= 100000; i++)
+                DrawFlag = false;
+            }
+
+            for(i = 0; i <= 500000; i++)
                 ;
+
+        }else{
+            x++;
         }
     }
 }
@@ -49,12 +60,28 @@ main(int argc, char *argv[])
 void
 Draw(void)
 {
-    int x,y;
-
-    for(x = 0; x < ROWS; x++)
-        for(y = 0; y < COLS ; y++)
-            video_memory[x][y] ? gfx_point(y,x) : 0;
+    register int row,col;
+    
+    for(row = 0; row < ROWS; row++){
+        for(col = 0; col < COLS; col++){
+            paint(row,col,video_memory[row][col] ? 1 : 0);
+        }
+    }
 }
+
+
+void paint(int row, int col, unsigned char color) {
+    int pixel_row = row * SQUARE_SIZE;
+    int pixel_col = col * SQUARE_SIZE;
+    int drow, dcol;
+
+    for (drow = 0; drow < SQUARE_SIZE; drow++) {
+        for (dcol = 0; dcol < SQUARE_SIZE; dcol++) {
+            color ? gfx_point(pixel_col + dcol, pixel_row + drow) : 0;
+        }
+    }
+}
+
 
 void
 key_wait(unsigned char c,int type)
@@ -76,6 +103,5 @@ key_wait(unsigned char c,int type)
             case 'g': KEY_STATE[0xD] = type ? 1 : 0; break;
             case 'z': KEY_STATE[0xE] = type ? 1 : 0; break;
             case 'x': KEY_STATE[0xF] = type ? 1 : 0; break;
-            default : printf("-1");  break;
     }
 }
