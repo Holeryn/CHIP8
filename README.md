@@ -5,6 +5,7 @@ A simple chip 8 emulator written in C.
 $ make e
 
 # For execute a game
+(There are a lot of games into the games direcotry)
 es : Space Invaders [David Winter]
 
 $ ./chip8 games/'Space Invaders [David Winter].ch8'
