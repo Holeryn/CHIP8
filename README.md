@@ -9,4 +9,5 @@ es : Space Invaders [David Winter]
 
 $ ./chip8 games/'Space Invaders [David Winter].ch8'
 
-![](https://github.com/Holeryn/CHIP8/blob/master/screenshoot.png)
+![](https://github.com/Holeryn/CHIP8/blob/master/img/scree1.png)
+![](https://github.com/Holeryn/CHIP8/blob/master/img/scree2.png)
