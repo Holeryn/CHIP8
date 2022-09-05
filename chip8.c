@@ -87,7 +87,9 @@ opcode_cycle(void)
         printf("%x \n",opcode);
     #endif
 
-
+// Ok, i REALLY don't know why i used if/elif/else statemente instead of switch case
+// there is a major difference in the two (che the asm)
+// but it's a boring correction and i don't want to do it :-).
       if(a == 0){
     /*
         Clear Istruction
